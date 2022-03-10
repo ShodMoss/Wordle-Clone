@@ -13,7 +13,8 @@ html, body {
     display: flex;
     background-color: black;
     height: 100%;
-
+    align-items: center;
+    flex-direction: column;
 }
 
 header{
