@@ -1,29 +1,35 @@
 document.addEventListener("DOMContentLoaded", () =>{
     createSquares();
 
-    const guessWords = [ [ ] ]
+    let guessWords = [ [ ] ];
+    let availableSpace = 1;
 
-    const keys = document.querySelectorAll('.keyboard-row button')
+    const keys = document.querySelectorAll('.keyboard-row button');
 
     for (let x = 0; x < keys.length; x++) {
         keys[x].onclick = ({target}) => {
             const letter = target.getAttribute("data-key");
 
-            updateGuessedWords(letter)
+            updateGuessedWords(letter);
         }
         
     }
 
     function getCurrentWordArr(){
-        const numberOfGuessedWords = guessWords.length
-        return guessWords[numberOfGuessedWords -1]
+        const numberOfGuessedWords = guessWords.length;
+        return guessWords[numberOfGuessedWords -1];
     }
 
     function updateGuessedWords(letter){
-        const currentWordArr = getCurrentWordArr()
+        const currentWordArr = getCurrentWordArr();
 
         if (currentWordArr && currentWordArr.length <5){
-            currentWordArr.push(letter)
+            currentWordArr.push(letter);
+
+            const availableSpacEl = document.getElementById(String(availableSpace));
+            availableSpace = availableSpace + 1
+
+            availableSpacEl.textContent = letter;
         }
     }
 
