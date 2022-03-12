@@ -4,16 +4,9 @@ document.addEventListener("DOMContentLoaded", () =>{
     let guessWords = [ [ ] ];
     let availableSpace = 1;
 
+    let word = "dairy"
+
     const keys = document.querySelectorAll('.keyboard-row button');
-
-    for (let x = 0; x < keys.length; x++) {
-        keys[x].onclick = ({target}) => {
-            const letter = target.getAttribute("data-key");
-
-            updateGuessedWords(letter);
-        }
-        
-    }
 
     function getCurrentWordArr(){
         const numberOfGuessedWords = guessWords.length;
@@ -45,5 +38,38 @@ document.addEventListener("DOMContentLoaded", () =>{
         }
     }
 
+    function handleSubmitWord(){
+        const currentWordArr = getCurrentWordArr()
+        if (currentWordArr.length !==5){
+            window.alert("Word must be 5 letters");
+        }
 
-})
+        const currentWord = currentWordArr.join('')
+
+        if (currentWord === word){
+            window.alert("Congratulations!");
+        }
+
+        if (guessWords.length === 6){
+            window.alert(`You have lost. The word is ${word}`);
+        }
+
+        guessWords.push([])
+    }
+
+
+    for (let x = 0; x < keys.length; x++) {
+        keys[x].onclick = ({target}) => {
+            const letter = target.getAttribute("data-key");
+
+            if (letter === 'enter'){
+                handleSubmitWord()
+                return;
+            }
+
+            updateGuessedWords(letter);
+        };
+        
+    }
+
+});
