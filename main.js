@@ -1,10 +1,10 @@
 document.addEventListener("DOMContentLoaded", () =>{
     createSquares();
-
+    
     let guessWords = [ [ ] ];
     let availableSpace = 1;
 
-    let word = "dairy"
+    let word = "sweet"
     let guessedWordCount = 0;
 
     const keys = document.querySelectorAll('.keyboard-row button');
@@ -40,16 +40,22 @@ document.addEventListener("DOMContentLoaded", () =>{
         }
     }
 
-    function getTileColor(letter, index){
-        const isCorrectLetter = word.includes(letter)
-
-        if (!isCorrectLetter){
-            return "rgb(58, 58, 60)";
+    function getTileColor(letter, index) {
+        const isCorrectLetter = word.includes(letter);
+    
+        if (!isCorrectLetter) {
+          return "rgb(58, 58, 60)";
         }
-
-        const letterInThatPosition = word.charAt(index)
-        const isCorrectPosition = letter = letterInThatPosition
-    }
+    
+        const letterInThatPosition = word.charAt(index);
+        const isCorrectPosition = letter === letterInThatPosition;
+    
+        if (isCorrectPosition) {
+          return "rgb(83, 141, 78)";
+        }
+    
+        return "rgb(181, 159, 59)";
+      }
 
 
 
@@ -74,7 +80,7 @@ document.addEventListener("DOMContentLoaded", () =>{
           }, interval * index);
         });
 
-        guessWordCount += 1;
+        guessedWordCount += 1;
 
         if (currentWord === word){
             window.alert("Congratulations!");
