@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", () =>{
     let availableSpace = 1;
 
     let word = "dairy"
-    let guessedWord =0;
+    let guessedWordCount = 0;
 
     const keys = document.querySelectorAll('.keyboard-row button');
 
@@ -40,6 +40,19 @@ document.addEventListener("DOMContentLoaded", () =>{
         }
     }
 
+    function getTileColor(letter, index){
+        const isCorrectLetter = word.includes(letter)
+
+        if (!isCorrectLetter){
+            return "rgb(58, 58, 60)";
+        }
+
+        const letterInThatPosition = word.charAt(index)
+        const isCorrectPosition = letter = letterInThatPosition
+    }
+
+
+
     function handleSubmitWord(){
         const currentWordArr = getCurrentWordArr()
         if (currentWordArr.length !==5){
@@ -52,13 +65,13 @@ document.addEventListener("DOMContentLoaded", () =>{
         const interval = 200;
         currentWordArr.forEach((letter, index) => {
           setTimeout(() => {
-            const tileColor = "rgb(58,58,60)";
+            const tileColor = getTileColor(letter, index);
 
             const letterId = firstLetterId + index;
             const letterEl = document.getElementById(letterId);
             letterEl.classList.add("animate__flipInX");
             letterEl.style = `background-color:${tileColor};border-color:${tileColor}`;
-          }, interval);
+          }, interval * index);
         });
 
         guessWordCount += 1;
