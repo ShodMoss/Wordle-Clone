@@ -93,6 +93,18 @@ document.addEventListener("DOMContentLoaded", () =>{
         guessWords.push([])
     }
 
+    function handleDeleteLetter() {
+        const currentWordArr = getCurrentWordArr();
+        const removedLetter = currentWordArr.pop();
+    
+        guessWords[guessWords.length - 1] = currentWordArr;
+    
+        const lastLetterEl = document.getElementById(String(availableSpace - 1));
+    
+        lastLetterEl.textContent = "";
+        availableSpace = availableSpace - 1;
+      }
+
 
     for (let x = 0; x < keys.length; x++) {
         keys[x].onclick = ({target}) => {
@@ -100,6 +112,11 @@ document.addEventListener("DOMContentLoaded", () =>{
 
             if (letter === 'enter'){
                 handleSubmitWord()
+                return;
+            }
+
+            if (letter === "del"){
+                handleDeleteLetter()
                 return;
             }
 
