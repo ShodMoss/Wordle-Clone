@@ -116,7 +116,13 @@ document.addEventListener("DOMContentLoaded", () =>{
             }
 
             if (letter === "del"){
-                handleDeleteLetter()
+                const currentWordArrDel = getCurrentWordArr()
+                if (currentWordArrDel.length === 0){
+                    return
+                }
+                else {
+                    handleDeleteLetter()
+                }
                 return;
             }
 
