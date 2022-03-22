@@ -57,6 +57,9 @@ document.addEventListener("DOMContentLoaded", () =>{
         return "rgb(181, 159, 59)";
       }
 
+      function changeKeyboardColor(){
+          
+      }
 
 
     function handleSubmitWord(){
