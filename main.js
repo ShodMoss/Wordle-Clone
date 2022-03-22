@@ -57,8 +57,14 @@ document.addEventListener("DOMContentLoaded", () =>{
         return "rgb(181, 159, 59)";
       }
 
-      function changeKeyboardColor(){
-          
+      function changeKeyboardColor(letter, index){
+        var elem = document.getElementById('active');
+
+        if (getTileColor.isCorrectLetter){
+            elem.style.color = rgb(83, 141, 78)
+
+        }
+
       }
 
 
