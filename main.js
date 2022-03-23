@@ -3,8 +3,16 @@ document.addEventListener("DOMContentLoaded", () =>{
     
     let guessWords = [ [ ] ];
     let availableSpace = 1;
-
-    let word = "crush"
+    let correctKeys = {};
+    [..."abcdefghijklmnopqrstuvwxyz"].forEach((letter) => {
+        correctKeys[letter] = -1 //set to no color state
+    });
+    let tile_colors = {
+        0: "rgb(58, 58, 60)",
+        1: "rgb(181, 159, 59)",
+        2: "rgb(83, 141, 78)"
+    };
+    let word = "greed"
     let guessedWordCount = 0;
 
     const keys = document.querySelectorAll('.keyboard-row button');
@@ -40,24 +48,34 @@ document.addEventListener("DOMContentLoaded", () =>{
         }
     }
 
-    function getTileColor(letter, index) {
+    function getTileColorId(letter, index) {
         const isCorrectLetter = word.includes(letter);
-    
-        if (!isCorrectLetter) {
-          return "rgb(58, 58, 60)";
-        }
-    
         const letterInThatPosition = word.charAt(index);
         const isCorrectPosition = letter === letterInThatPosition;
-    
-        if (isCorrectPosition) {
-          return "rgb(83, 141, 78)";
+
+        if (!isCorrectLetter) {
+            //gray
+            return 0;
+        } else if (isCorrectPosition) {
+            //green
+            return 2;
         }
-    
-        return "rgb(181, 159, 59)";
-      }
+        //yellow
+        return 1;
+    }
 
-
+    function updateCorrectKey(letter, colorId) {
+        if (correctKeys[letter] < colorId) {
+            correctKeys[letter] = colorId; 
+        }
+    }
+    function changeKeyColor(key){
+        let letter = key.getAttribute('data-key');
+        let keyColor = tile_colors[correctKeys[letter]];
+        if (keyColor) {
+            key.style = `background-color:${keyColor}`;
+        }
+    }
 
     function handleSubmitWord(){
         const currentWordArr = getCurrentWordArr()
@@ -69,16 +87,28 @@ document.addEventListener("DOMContentLoaded", () =>{
 
         const firstLetterId = guessedWordCount * 5 + 1;
         const interval = 200;
-        currentWordArr.forEach((letter, index) => {
-          setTimeout(() => {
-            const tileColor = getTileColor(letter, index);
+        let letterELs = [];
 
+        currentWordArr.forEach((letter, index) => {
+            const colorId = getTileColorId(letter, index);
+            const tileColor = tile_colors[colorId];
             const letterId = firstLetterId + index;
-            const letterEl = document.getElementById(letterId);
-            letterEl.classList.add("animate__flipInX");
-            letterEl.style = `background-color:${tileColor};border-color:${tileColor}`;
-          }, interval * index);
+            letterELs.push([tileColor, letterId]);
+            updateCorrectKey(letter, colorId);
         });
+
+        keys.forEach(key => {
+            changeKeyColor(key);
+        });
+
+        letterELs.forEach((letterData, index)=> 
+            setTimeout(() => {
+                const tileColor = letterData[0];
+                const letterId = letterData[1];
+                const letterEl = document.getElementById(letterId);
+                letterEl.classList.add("animate__flipInX");
+                letterEl.style = `background-color:${tileColor};border-color:${tileColor}`;
+            }, interval * index));
 
         guessedWordCount += 1;
 
@@ -116,7 +146,13 @@ document.addEventListener("DOMContentLoaded", () =>{
             }
 
             if (letter === "del"){
-                handleDeleteLetter()
+                const currentWordArrDel = getCurrentWordArr()
+                if (currentWordArrDel.length === 0){
+                    return
+                }
+                else {
+                    handleDeleteLetter()
+                }
                 return;
             }
 
