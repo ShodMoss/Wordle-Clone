@@ -87,8 +87,6 @@ document.addEventListener("DOMContentLoaded", () =>{
             return
         }
         
-
-
         const currentWord = currentWordArr.join("");
 
         const firstLetterId = guessedWordCount * 5 + 1;
