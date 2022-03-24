@@ -87,9 +87,7 @@ document.addEventListener("DOMContentLoaded", () =>{
             return
         }
         
-        if (realWord() === false){
-            return
-        }
+
 
         const currentWord = currentWordArr.join("");
 
