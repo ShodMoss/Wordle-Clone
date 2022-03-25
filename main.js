@@ -74,7 +74,7 @@ document.addEventListener("DOMContentLoaded", () =>{
 
       function realWord () {
         const currentWordArr = getCurrentWordArr()
-          if (realWordBank.includes(currentWordArr)){
+          if (realWordBank.includes(handleSubmitWord.currentWord)){
               return true
           }
           else
@@ -90,7 +90,9 @@ document.addEventListener("DOMContentLoaded", () =>{
             return
         }
 
-        if (realWord() === false){
+        let varRealWord = realWord()
+
+        if (varRealWord == false){
             window.alert("That is not a real word");
             return
         }
@@ -117,7 +119,7 @@ document.addEventListener("DOMContentLoaded", () =>{
             window.alert("Congratulations!");
         }
 
-        if (guessWords.length === 6){
+        if (guessWords.length === 6 && currentWord != word){
             window.alert(`You have lost. The word is ${word}`);
         }
 
