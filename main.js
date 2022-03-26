@@ -80,7 +80,6 @@ document.addEventListener("DOMContentLoaded", () =>{
     }
 
     function realWord () {
-        const currentWordArr = getCurrentWordArr()
           if (realWordBank.includes(handleSubmitWord.currentWord)){
               return true
           }
@@ -96,6 +95,11 @@ document.addEventListener("DOMContentLoaded", () =>{
         }
 
         const currentWord = currentWordArr.join("");
+
+        if (realWord === false){
+            window.alert("That is not a real word");
+            return
+        }
 
         const firstLetterId = guessedWordCount * 5 + 1;
         const interval = 200;
