@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () =>{
         1: "rgb(181, 159, 59)",
         2: "rgb(83, 141, 78)"
     };
-    let word = "greed"
+    let word = "marin"
     let guessedWordCount = 0;
 
     
